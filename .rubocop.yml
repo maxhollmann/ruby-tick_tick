@@ -1,0 +1,20 @@
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+
+Style/Documentation:
+  Enabled: false
+
+Style/MultilineBlockChain:
+  Enabled: false
+
+Lint/UnusedMethodArgument:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 120
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
