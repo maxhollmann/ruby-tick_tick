@@ -2,7 +2,6 @@
 
 require 'faraday'
 require 'faraday_middleware'
-require 'tick_tick/api/response'
 
 module TickTick
   module API
@@ -100,9 +99,7 @@ module TickTick
         @connection ||= Faraday::Connection.new(url: @endpoint) do |conn|
           conn.request :json
 
-          conn.response :mashify, mash_class: Response
           conn.response :json, content_type: /\bjson$/
-
           if @logger
             conn.response :logger, @logger, bodies: false
           end

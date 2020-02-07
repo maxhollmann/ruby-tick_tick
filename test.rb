@@ -19,28 +19,10 @@ else
   File.write('test-token', c.token)
 end
 
-task = TickTick::API::Response.new(
-  id: generate_id,
-  projectId: 'inbox115730865',
-  title: %w[this task is to test the api of TickTick via ruby].shuffle.join(' ').capitalize,
-  assignee: nil,
-  content: '',
-  deleted: 0,
-  dueDate: nil,
-  exDate: [],
-  isFloating: false,
-  items: [],
-  modifiedTime: '2020-02-07T14:11:54.573+0000',
-  priority: 0,
-  progress: 0,
-  reminders: [],
-  sortOrder: -12_094_627_905_536,
-  startDate: nil,
-  status: 0,
-  tags: ['business'],
-  timeZone: 'Europe/Berlin',
-)
+require 'tick_tick/api/entities/batch_check'
 
-c.add_task task
-c.delete_task task
-c.empty_trash
+data = c.batch_check
+ap data
+bc = TickTick::API::Entities::BatchCheck.new(data)
+
+ap bc
