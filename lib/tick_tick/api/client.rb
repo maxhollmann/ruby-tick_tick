@@ -7,11 +7,13 @@ require 'tick_tick/api/response'
 module TickTick
   module API
     class Client
+      attr_reader :endpoint
       attr_accessor :token
 
-      def initialize(endpoint: 'https://api.ticktick.com/api/v2/', token: nil)
+      def initialize(endpoint: 'https://api.ticktick.com/api/v2/', token: nil, logger: nil)
         @endpoint = endpoint
         @token = token
+        @logger = logger
       end
 
       def sign_in(username:, password:)
@@ -97,13 +99,13 @@ module TickTick
       def connection
         @connection ||= Faraday::Connection.new(url: @endpoint) do |conn|
           conn.request :json
-          # conn.request :multipart
-          # conn.request :url_encoded
 
           conn.response :mashify, mash_class: Response
           conn.response :json, content_type: /\bjson$/
 
-          conn.response :logger, ::Logger.new(STDERR), bodies: false
+          if @logger
+            conn.response :logger, @logger, bodies: false
+          end
 
           conn.adapter Faraday.default_adapter
         end

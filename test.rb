@@ -10,7 +10,7 @@ def generate_id
   SecureRandom.hex(12)
 end
 
-c = TickTick::API::Client.new
+c = TickTick::API::Client.new(logger: ::Logger.new(STDERR))
 
 if File.exist?('test-token')
   c.token = File.read('test-token')
@@ -41,4 +41,6 @@ task = TickTick::API::Response.new(
   timeZone: 'Europe/Berlin',
 )
 
-binding.pry
+c.add_task task
+c.delete_task task
+c.empty_trash

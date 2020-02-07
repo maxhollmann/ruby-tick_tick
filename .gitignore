@@ -1,2 +1,5 @@
 /Gemfile.lock
 /test-token
+/spec/examples.txt
+/coverage/
+/tick_tick-*.gem

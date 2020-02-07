@@ -1,0 +1,34 @@
+name: Build
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        ruby_version: [2.4.x, 2.5.x, 2.6.x, 2.7.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby 2.6
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby_version }}
+    - name: Install bundle
+      run: |
+        gem install bundler
+        bundle install --jobs 4 --retry 3
+    - name: Test with rspec
+      run: |
+        bundle exec rspec
+    - name: Publish code coverage
+      uses: paambaati/codeclimate-action@v2.4.0
+      with:
+        coverageCommand: echo ${{secrets.CC_TEST_REPORTER_ID}}
+        coverageLocations: 'coverage/.resultset.json:simplecov'
+      env:
+        CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
+    - name: Lint using Rubocop
+      run: |
+        bundle exec rubocop

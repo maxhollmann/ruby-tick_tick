@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.description   = 'Client for the unofficial TickTick API.'
   spec.homepage      = 'https://github.com/maxhollmann/ruby-tick_tick'
 
-  spec.files = Dir['lib/**/*']
+  spec.files         = Dir['lib/**/*']
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
@@ -26,5 +26,9 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'awesome_print'
   spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'rubocop'
+  spec.add_development_dependency 'simplecov', '~> 0.17.0'
+  spec.add_development_dependency 'vcr'
+  spec.add_development_dependency 'webmock'
 end

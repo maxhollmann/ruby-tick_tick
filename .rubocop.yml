@@ -18,3 +18,10 @@ Layout/LineLength:
 
 Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
